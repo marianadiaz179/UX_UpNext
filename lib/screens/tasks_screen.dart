@@ -8,71 +8,90 @@ class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+
+    final padding = width * 0.04;
+    final titleFont = width * 0.1;
+    final dividerSpacing = height * 0.015;
+    final tileSpacing = height * 0.02;
+    final buttonFont = width * 0.04;
+    final buttonIconSize = width * 0.045;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.all(padding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               const CustomAppBar(),
-
-              const SizedBox(height: 20),
+              SizedBox(height: height * 0.02),
 
               // Título
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
+              Padding(
+                padding: EdgeInsets.only(left: width * 0.05),
                 child: Text(
                   "Tareas",
                   style: TextStyle(
-                    fontSize: 38,
+                    fontSize: titleFont,
                     fontFamily: 'Cursive',
                     color: Colors.black,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 10),
+              SizedBox(height: height * 0.01),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 15),
+                padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                 child: Divider(color: Colors.grey.shade300),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: dividerSpacing),
 
               // Lista de tareas
               const TaskTile(title: "Sacar Perro", time: "8:30 AM"),
-              const SizedBox(height: 15),
+              SizedBox(height: tileSpacing),
               const TaskTile(title: "Llamar al médico", time: "10:00 AM"),
-              const SizedBox(height: 15),
+              SizedBox(height: tileSpacing),
               const TaskTile(title: "Comprar mercado", time: "6:00 PM"),
 
-              const SizedBox(height: 30),
+              SizedBox(height: height * 0.03),
 
               // Botón historial
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 15),
+                  padding: EdgeInsets.only(right: width * 0.04),
                   child: ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const TaskHistoryScreen()),
+                        MaterialPageRoute(
+                          builder: (_) => const TaskHistoryScreen(),
+                        ),
                       );
                     },
-                    icon: const Icon(Icons.history, size: 18, color: Colors.black),
-                    label: const Text(
+                    icon: Icon(Icons.history,
+                        size: buttonIconSize, color: Colors.black),
+                    label: Text(
                       "Historial",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: buttonFont,
+                      ),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFE2CCD6),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(width * 0.05),
                       ),
                       elevation: 0,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: width * 0.05,
+                        vertical: height * 0.012,
+                      ),
                     ),
                   ),
                 ),

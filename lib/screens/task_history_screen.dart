@@ -6,20 +6,20 @@ class TaskHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double padding = screenHeight * 0.02;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: EdgeInsets.all(padding),
+          child: ListView(
             children: [
-              
               const CustomAppBar(),
+              SizedBox(height: padding),
 
-              const SizedBox(height: 20),
-
-              // Título
+              // Título principal
               const Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
@@ -31,7 +31,6 @@ class TaskHistoryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
               const Padding(
                 padding: EdgeInsets.only(left: 22),
                 child: Text(
@@ -43,13 +42,12 @@ class TaskHistoryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 15),
                 child: Divider(color: Colors.grey.shade300),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: padding),
 
               // Sección activas
               const Padding(
@@ -62,10 +60,8 @@ class TaskHistoryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
-              _TaskTile(title: "Sacar Perro", time: "8:30 AM"),
-
-              const SizedBox(height: 30),
+              const _TaskTile(title: "Sacar Perro", time: "8:30 AM"),
+              SizedBox(height: padding * 1.5),
 
               // Sección cerradas
               const Padding(
@@ -78,7 +74,7 @@ class TaskHistoryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              _TaskTile(title: "Hacer mercado", time: "10:30 AM"),
+              const _TaskTile(title: "Hacer mercado", time: "10:30 AM"),
             ],
           ),
         ),
@@ -96,12 +92,12 @@ class _TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 15),
+      padding: const EdgeInsets.only(left: 20, right: 15, bottom: 12),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: const Color(0xFFEDEBF5),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
           children: [

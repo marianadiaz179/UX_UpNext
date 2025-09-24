@@ -7,47 +7,53 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.all(width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               const CustomAppBar(),
 
-              const SizedBox(height: 20),
+              SizedBox(height: height * 0.02),
 
-              // Título
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
+              Padding(
+                padding: EdgeInsets.only(left: width * 0.05),
                 child: Text(
                   "Notificaciones",
                   style: TextStyle(
-                    fontSize: 38,
+                    fontSize: width * 0.09, // tamaño de texto dinámico
                     fontFamily: 'Cursive',
                     color: Colors.black,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 10),
+              SizedBox(height: height * 0.012),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 15),
-                child: Divider(color: Colors.grey.shade300),
+                padding: EdgeInsets.only(
+                  left: width * 0.05,
+                  right: width * 0.04,
+                ),
+                child: Divider(color: Colors.grey.shade300, thickness: 1),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: height * 0.025),
 
-              const NotificationTile(
+              NotificationTile(
                 title: "Alarma - Despertar",
-                message: "Su alarma se ha actualizado para sonar a las 5:00 AM todos los días",
+                message:
+                    "Su alarma se ha actualizado para sonar a las 5:00 AM todos los días",
               ),
-              const SizedBox(height: 20),
 
-              // Notificación 2
-              const NotificationTile(
+              SizedBox(height: height * 0.02),
+
+              NotificationTile(
                 title: "Tarea - Hacer mercado",
                 message: "Su tarea Hacer Mercado ha sido finalizada exitosamente",
               ),

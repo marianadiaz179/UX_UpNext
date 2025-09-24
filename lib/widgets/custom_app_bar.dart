@@ -8,12 +8,21 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+
+    // Escalas proporcionales
+    final double iconSize = (width * 0.06).clamp(20, 26); // Tamaño de iconos
+    final double spacing = (width * 0.04).clamp(12, 18); // Espaciado entre iconos
+    final double avatarRadius = (width * 0.045).clamp(16, 20); // Radio del avatar
+    final double avatarIconSize = (width * 0.05).clamp(16, 22); // Ícono dentro del avatar
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Botón atrás
         IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Colors.black, size: iconSize),
           onPressed: onBack ?? () => Navigator.pop(context),
         ),
 
@@ -27,9 +36,9 @@ class CustomAppBar extends StatelessWidget {
                   const SnackBar(content: Text("Funcionalidad no disponible")),
                 );
               },
-              child: const Icon(Icons.settings, color: Colors.black54, size: 24),
+              child: Icon(Icons.settings, color: Colors.black54, size: iconSize),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: spacing),
 
             // Notificaciones
             GestureDetector(
@@ -39,20 +48,21 @@ class CustomAppBar extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const NotificationsScreen()),
                 );
               },
-              child: const Icon(Icons.notifications_none, color: Colors.black54, size: 24),
+              child: Icon(Icons.notifications_none, color: Colors.black54, size: iconSize),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: spacing),
 
+            // Avatar usuario
             GestureDetector(
               onTap: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Funcionalidad no disponible")),
                 );
               },
-              child: const CircleAvatar(
-                radius: 18,
-                backgroundColor: Color(0xFF7A627E),
-                child: Icon(Icons.person, size: 20, color: Colors.white),
+              child: CircleAvatar(
+                radius: avatarRadius.toDouble(),
+                backgroundColor: const Color(0xFF7A627E),
+                child: Icon(Icons.person, size: avatarIconSize, color: Colors.white),
               ),
             ),
           ],

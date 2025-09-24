@@ -49,18 +49,20 @@ class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double padding = screenHeight * 0.02;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: EdgeInsets.all(padding),
+          child: ListView(
             children: [
               const CustomAppBar(),
-              const SizedBox(height: 20),
+              SizedBox(height: padding),
 
-              // Título
+              // Título principal
               const Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
@@ -88,7 +90,7 @@ class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
                 padding: const EdgeInsets.only(left: 20, right: 15),
                 child: Divider(color: Colors.grey.shade300),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: padding),
 
               // Sección activas
               const Padding(
@@ -133,7 +135,7 @@ class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
                 );
               }),
 
-              const SizedBox(height: 30),
+              SizedBox(height: padding * 1.5),
 
               // Sección cerradas
               const Padding(

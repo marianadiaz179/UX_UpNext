@@ -29,8 +29,25 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
   bool mostrarLista = true;
   bool asociarGoogleHome = true;
 
-  final List<String> listasDisponibles = ["Lista A", "Lista B", "Lista C", "Trello", "Google Tasks", "Asana", ""];
-  final List<String> sonidosDisponibles = ["Sonido 1", "Sonido 2", "Sonido 3", "Breaking", "Beep", "Chill", ""];
+  final List<String> listasDisponibles = [
+    "Lista A",
+    "Lista B",
+    "Lista C",
+    "Trello",
+    "Google Tasks",
+    "Asana",
+    ""
+  ];
+
+  final List<String> sonidosDisponibles = [
+    "Sonido 1",
+    "Sonido 2",
+    "Sonido 3",
+    "Breaking",
+    "Beep",
+    "Chill",
+    ""
+  ];
 
   @override
   void initState() {
@@ -50,22 +67,23 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          padding: EdgeInsets.all(width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               const CustomAppBar(),
+              SizedBox(height: height * 0.02),
 
-              const SizedBox(height: 10),
-
-              // 📝 Título editable
               Padding(
-                padding: const EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(left: width * 0.05),
                 child: TextField(
                   controller: nombreController,
                   style: const TextStyle(
@@ -80,33 +98,45 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
                 ),
               ),
 
-              const SizedBox(height: 5),
+              SizedBox(height: height * 0.015),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 15),
-                child: Divider(color: Colors.grey.shade300),
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.05,
+                ),
+                child: Divider(color: Colors.grey.shade300, thickness: 1),
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: height * 0.02),
 
-              // 📋 Campos editables
-              buildTextFieldRow("Nombre:", nombreController),
-              buildTextFieldRow("Hora:", horaController),
-              buildDropdownRow("Lista asociada:", listaSeleccionada, listasDisponibles, (val) {
-                setState(() => listaSeleccionada = val);
-              }),
-              buildDropdownRow("Sonido:", sonidoSeleccionado, sonidosDisponibles, (val) {
-                setState(() => sonidoSeleccionado = val);
-              }),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      buildTextFieldRow("Nombre:", nombreController, size),
+                      buildTextFieldRow("Hora:", horaController, size),
+                      buildDropdownRow("Lista asociada:", listaSeleccionada,
+                          listasDisponibles, (val) {
+                        setState(() => listaSeleccionada = val);
+                      }, size),
+                      buildDropdownRow("Sonido:", sonidoSeleccionado,
+                          sonidosDisponibles, (val) {
+                        setState(() => sonidoSeleccionado = val);
+                      }, size),
 
-              const SizedBox(height: 20),
+                      SizedBox(height: height * 0.05),
 
-              // 🔘 Switches
-              buildSwitchTile("Mostrar lista al inicio", mostrarLista, (val) {
-                setState(() => mostrarLista = val);
-              }),
-              const SizedBox(height: 16),
-              buildSwitchTile("Asociar con Google Home", asociarGoogleHome, (val) {
-                setState(() => asociarGoogleHome = val);
-              }),
+                      buildSwitchTile(
+                          "Mostrar lista al inicio", mostrarLista, (val) {
+                        setState(() => mostrarLista = val);
+                      }, size),
+                      SizedBox(height: height * 0.02),
+                      buildSwitchTile("Asociar con Google Home",
+                          asociarGoogleHome, (val) {
+                        setState(() => asociarGoogleHome = val);
+                      }, size),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -114,23 +144,35 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
     );
   }
 
-  // 🔹 Helper: campo de texto editable
-  Widget buildTextFieldRow(String label, TextEditingController controller) {
+  Widget buildTextFieldRow(
+      String label, TextEditingController controller, Size size) {
+    final width = size.width;
+    final height = size.height;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20),
+      padding: EdgeInsets.symmetric(
+        vertical: height * 0.008,
+        horizontal: width * 0.07,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Expanded(
+              flex: 4,
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: width * 0.04,
+                ),
+              )),
           SizedBox(
-            width: 160,
+            width: width * 0.45,
             child: TextField(
               controller: controller,
               textAlign: TextAlign.right,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-              ),
+              style: TextStyle(fontSize: width * 0.04),
+              decoration: const InputDecoration(border: InputBorder.none),
             ),
           ),
         ],
@@ -138,42 +180,79 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
     );
   }
 
-  // 🔹 Helper: dropdown
-  Widget buildDropdownRow(
-      String label, String? value, List<String> items, ValueChanged<String?> onChanged) {
+  Widget buildDropdownRow(String label, String? value, List<String> items,
+      ValueChanged<String?> onChanged, Size size) {
+    final width = size.width;
+    final height = size.height;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20),
+      padding: EdgeInsets.symmetric(
+        vertical: height * 0.008,
+        horizontal: width * 0.07,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          DropdownButton<String>(
-            value: value,
-            underline: const SizedBox(),
-            items: items.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-            onChanged: onChanged,
+          Expanded(
+              flex: 4,
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: width * 0.04,
+                ),
+              )),
+          SizedBox(
+            width: width * 0.35,
+            child: DropdownButton<String>(
+              value: value,
+              isExpanded: true,
+              underline: const SizedBox(),
+              items: items
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(
+                          e,
+                          style: TextStyle(fontSize: width * 0.04),
+                        ),
+                      ))
+                  .toList(),
+              onChanged: onChanged,
+            ),
           ),
         ],
       ),
     );
   }
 
-  // 🔹 Helper: switch interactivo
-  Widget buildSwitchTile(String label, bool value, ValueChanged<bool> onChanged) {
+  Widget buildSwitchTile(
+      String label, bool value, ValueChanged<bool> onChanged, Size size) {
+    final width = size.width;
+    final height = size.height;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: width * 0.06,
+        vertical: height * 0.001,
+      ),
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+        height: height * 0.06,
+        padding: EdgeInsets.symmetric(
+          horizontal: width * 0.04,
+          vertical: height * 0.01,
+        ),
         decoration: BoxDecoration(
           color: const Color(0xFFEDEBF5),
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(width * 0.015),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: const TextStyle(fontSize: 16)),
+            Text(
+              label,
+              style: TextStyle(fontSize: width * 0.04),
+            ),
             Switch(
               value: value,
               activeColor: Colors.black,

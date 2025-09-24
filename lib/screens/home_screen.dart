@@ -9,27 +9,39 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size; 
+    final width = size.width;
+    final height = size.height;
+
+    // usamos proporciones relativas
+    final padding = width * 0.05; // 5% del ancho
+    final titleFont = width * 0.12; // proporcional al ancho
+    final subtitleFont = width * 0.035;
+    final dividerSpacing = height * 0.03;
+    final clockDiameter = width * 0.6; // 60% del ancho
+    final handThickness = width * 0.01;
+    final handLength = clockDiameter * 0.5;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(padding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               const CustomAppBar(),
-              const SizedBox(height: 40),
+              SizedBox(height: height * 0.05),
 
               // Logo
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Center(
                     child: Text(
                       "UpNext",
                       style: TextStyle(
-                        fontSize: 64,
+                        fontSize: titleFont,
                         fontFamily: 'Cursive',
                         color: Colors.black,
                       ),
@@ -39,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                     child: Text(
                       "Productivity",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: subtitleFont,
                         fontWeight: FontWeight.w300,
                         color: Colors.black87,
                       ),
@@ -48,15 +60,15 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 30),
+              SizedBox(height: dividerSpacing),
               Divider(color: Colors.grey.shade300),
-              const SizedBox(height: 30),
+              SizedBox(height: dividerSpacing),
 
-              // Clock (radio = 256 px, diámetro = 512 px)
+              // Clock
               Center(
                 child: SizedBox(
-                  width: 256,
-                  height: 256,
+                  width: clockDiameter,
+                  height: clockDiameter,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -71,27 +83,32 @@ class HomeScreen extends StatelessWidget {
                       // números
                       Positioned.fill(
                         child: CustomPaint(
-                          painter: ClockNumbersPainter(),
+                          painter: ClockNumbersPainter(
+                            fontSize: width * 0.04,
+                          ),
                         ),
                       ),
 
                       // manecilla
                       Transform.rotate(
-                        angle: 3.7, // en radianes (ajusta según hora)
+                        angle: 3.7,
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Container(
-                            width: 4,
-                            height: 130, // se ajusta proporcional al radio
+                            width: handThickness,
+                            height: handLength,
                             color: const Color(0xFF7A627E),
                           ),
                         ),
                       ),
 
-                      // círculo en el 7 (posición automática)
+                      // círculo en el 7
                       Positioned.fill(
                         child: CustomPaint(
-                          painter: CircleAtSevenPainter(),
+                          painter: CircleAtSevenPainter(
+                            circleRadius: width * 0.07,
+                            fontSize: width * 0.045,
+                          ),
                         ),
                       ),
                     ],
@@ -99,33 +116,41 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 30),
+              SizedBox(height: dividerSpacing),
               Divider(color: Colors.grey.shade300),
-              const SizedBox(height: 30),
+              SizedBox(height: dividerSpacing),
 
               // Botones
               Center(
                 child: Column(
-                  children:  [
+                  children: [
                     _CustomButton(
-                        label: "Alarmas",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => const AlarmsScreen()),
-                          );
-                        },
-                      ),
-                    SizedBox(height: 20),
+                      label: "Alarmas",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const AlarmsScreen()),
+                        );
+                      },
+                      width: width * 0.5,
+                      height: height * 0.07,
+                      fontSize: width * 0.05,
+                    ),
+                    SizedBox(height: height * 0.03),
                     _CustomButton(
-                        label: "Tareas",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => const TasksScreen()),
-                          );
-                        },
-                      ),
+                      label: "Tareas",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const TasksScreen()),
+                        );
+                      },
+                      width: width * 0.5,
+                      height: height * 0.07,
+                      fontSize: width * 0.05,
+                    ),
                   ],
                 ),
               )
@@ -140,7 +165,17 @@ class HomeScreen extends StatelessWidget {
 class _CustomButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
-  const _CustomButton({required this.label, required this.onPressed});
+  final double width;
+  final double height;
+  final double fontSize;
+
+  const _CustomButton({
+    required this.label,
+    required this.onPressed,
+    required this.width,
+    required this.height,
+    required this.fontSize,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -149,14 +184,18 @@ class _CustomButton extends StatelessWidget {
       icon: const Icon(Icons.star_border, color: Colors.black87),
       label: Text(
         label,
-        style: const TextStyle(color: Colors.black87, fontSize: 22, fontWeight: FontWeight.w500),
+        style: TextStyle(
+          color: Colors.black87,
+          fontSize: fontSize,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFFE2CCD6),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        minimumSize: const Size(184, 64),
+        minimumSize: Size(width, height),
         elevation: 0,
       ),
     );
@@ -165,11 +204,14 @@ class _CustomButton extends StatelessWidget {
 
 // Painter para los números del reloj
 class ClockNumbersPainter extends CustomPainter {
+  final double fontSize;
+  ClockNumbersPainter({required this.fontSize});
+
   @override
   void paint(Canvas canvas, Size size) {
-    const textStyle = TextStyle(
+    final textStyle = TextStyle(
       color: Colors.black,
-      fontSize: 16,
+      fontSize: fontSize,
     );
 
     final radius = size.width / 2;
@@ -201,32 +243,33 @@ class ClockNumbersPainter extends CustomPainter {
 
 // Painter para el círculo en el número 7
 class CircleAtSevenPainter extends CustomPainter {
+  final double circleRadius;
+  final double fontSize;
+
+  CircleAtSevenPainter({
+    required this.circleRadius,
+    required this.fontSize,
+  });
+
   @override
   void paint(Canvas canvas, Size size) {
     final radius = size.width / 2;
     final center = Offset(radius, radius);
 
-    // número 7 → ángulo
     final angle = (7 * 30 - 90) * pi / 180;
     final offset = Offset(
       center.dx + radius * 0.8 * cos(angle),
       center.dy + radius * 0.8 * sin(angle),
     );
 
-    // círculo
     final paint = Paint()..color = const Color(0xFF7A627E);
-    canvas.drawCircle(offset, 28, paint);
+    canvas.drawCircle(offset, circleRadius, paint);
 
-    // texto
-    const textStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    );
     final textPainter = TextPainter(
-      text: const TextSpan(text: "7", style: textStyle),
+      text: const TextSpan(text: "7"),
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
+      textScaleFactor: fontSize / 20,
     )..layout();
 
     textPainter.paint(
