@@ -22,13 +22,12 @@ class AlarmTileMobile extends StatelessWidget {
     final width = size.width;
     final height = size.height;
 
-    // Escala base para no agrandar demasiado
-    final textScale = width * 0.035; // ~16 en un móvil normal (400px)
-    final smallTextScale = width * 0.03; // ~14 en un móvil normal
-    final paddingH = width * 0.04; // 16px aprox
-    final paddingV = height * 0.015; // 12px aprox
-    final radius = width * 0.02; // 8px aprox
-    final gap = height * 0.005; // 4px aprox
+    final textScale = width * 0.035;
+    final smallTextScale = width * 0.03;
+    final paddingH = width * 0.04;
+    final paddingV = height * 0.015;
+    final radius = width * 0.02;
+    final gap = height * 0.005;
 
     return GestureDetector(
       onTap: onTap,

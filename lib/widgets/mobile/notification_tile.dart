@@ -15,11 +15,10 @@ class NotificationTile extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final width = size.width;
 
-    // Escalas proporcionales
     final double horizontalPadding = (width * 0.04).clamp(12, 20); 
-    final double verticalPadding = (width * 0.03).clamp(8, 16); 
-    final double fontSizeTitle = (width * 0.042).clamp(14, 18); 
-    final double fontSizeMessage = (width * 0.038).clamp(12, 16); 
+    final double verticalPadding = (width * 0.03).clamp(6, 16); 
+    final double fontSizeTitle = (width * 0.040).clamp(2, 18); 
+    final double fontSizeMessage = (width * 0.035).clamp(2, 16); 
     final double spacing = (width * 0.015).clamp(4, 8); 
     final double borderRadius = (width * 0.02).clamp(4, 8); 
 

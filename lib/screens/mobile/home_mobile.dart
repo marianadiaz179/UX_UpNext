@@ -13,141 +13,145 @@ class HomeMobile extends StatelessWidget {
     final width = size.width;
     final height = size.height;
 
-    final padding = width * 0.05; 
-    final titleFont = width * 0.12;
-    final subtitleFont = width * 0.035;
-    final dividerSpacing = height * 0.03;
-    final clockDiameter = width * 0.6;
-    final handThickness = width * 0.01;
-    final handLength = clockDiameter * 0.5;
+    final double paddingHorizontal = (width * 0.05).clamp(8, 16);
+    final double titleFont = (width * 0.15).clamp(24, 50);
+    final double subtitleFont = (width * 0.015).clamp(12, 60);
+    final double dividerSpacing = (height * 0.03).clamp(8, 20);
+    final double clockDiameter = (width * 0.6).clamp(150, 300);
+    final double handThickness = (width * 0.01).clamp(2, 6);
+    final double handLength = clockDiameter * 0.5;
+    final double buttonWidth = (width * 0.4).clamp(120, 200);
+    final double buttonHeight = (height * 0.06).clamp(40, 60);
+    final double buttonFont = (width * 0.04).clamp(14, 20);
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(padding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CustomAppBarMobile(showBackButton: false),
-              SizedBox(height: height * 0.05),
+          padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CustomAppBarMobile(showBackButton: false),
+                SizedBox(height: height * 0.03),
 
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Text(
-                      "UpNext",
-                      style: TextStyle(
-                        fontSize: titleFont,
-                        fontFamily: 'Rochester',
-                        color: Colors.black,
-                      ),
+                // Título y subtítulo
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "UpNext",
+                    style: TextStyle(
+                      fontSize: titleFont,
+                      fontFamily: 'Rochester',
+                      color: Colors.black,
                     ),
                   ),
-                  Center(
-                    child: Text(
-                      "Productivity",
-                      style: TextStyle(
-                        fontSize: subtitleFont,
-                        fontFamily: 'Risque',
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black87,
-                      ),
+                ),
+                SizedBox(height: height * 0.005),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "Productivity",
+                    style: TextStyle(
+                      fontSize: subtitleFont,
+                      fontFamily: 'Risque',
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black87,
                     ),
                   ),
-                ],
-              ),
+                ),
 
-              SizedBox(height: dividerSpacing),
-              Divider(color: Colors.grey.shade300),
-              SizedBox(height: dividerSpacing),
+                SizedBox(height: dividerSpacing),
+                Divider(color: Colors.grey.shade300),
+                SizedBox(height: dividerSpacing),
 
-              Center(
-                child: SizedBox(
-                  width: clockDiameter,
-                  height: clockDiameter,
-                  child: Stack(
-                    alignment: Alignment.center,
+                // Reloj centrado
+                Center(
+                  child: SizedBox(
+                    width: clockDiameter,
+                    height: clockDiameter,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFFEDEFF1),
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: CustomPaint(
+                            painter: ClockNumbersPainter(
+                              fontSize: (width * 0.04).clamp(10, 18),
+                            ),
+                          ),
+                        ),
+                        Transform.rotate(
+                          angle: 3.7,
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                              width: handThickness,
+                              height: handLength,
+                              color: const Color(0xFF7A627E),
+                            ),
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: CustomPaint(
+                            painter: CircleAtSevenPainter(
+                              circleRadius: (width * 0.1).clamp(10, 25),
+                              fontSize: (width * 0.045).clamp(10, 18),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: dividerSpacing),
+                Divider(color: Colors.grey.shade300),
+                SizedBox(height: dividerSpacing),
+
+                // Botones centrados
+                Center(
+                  child: Column(
                     children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFFEDEFF1),
-                        ),
+                      _CustomButton(
+                        label: "Alarmas",
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const AlarmsMobileScreen()),
+                          );
+                        },
+                        width: buttonWidth,
+                        height: buttonHeight,
+                        fontSize: buttonFont,
                       ),
-
-                      Positioned.fill(
-                        child: CustomPaint(
-                          painter: ClockNumbersPainter(
-                            fontSize: width * 0.04,
-                          ),
-                        ),
+                      SizedBox(height: height * 0.03),
+                      _CustomButton(
+                        label: "Tareas",
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const TasksMobileScreen()),
+                          );
+                        },
+                        width: buttonWidth,
+                        height: buttonHeight,
+                        fontSize: buttonFont,
                       ),
-
-                      Transform.rotate(
-                        angle: 3.7,
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            width: handThickness,
-                            height: handLength,
-                            color: const Color(0xFF7A627E),
-                          ),
-                        ),
-                      ),
-
-                      Positioned.fill(
-                        child: CustomPaint(
-                          painter: CircleAtSevenPainter(
-                            circleRadius: width * 0.07,
-                            fontSize: width * 0.045,
-                          ),
-                        ),
-                      ),
+                      SizedBox(height: height * 0.03),
                     ],
                   ),
                 ),
-              ),
-
-              SizedBox(height: dividerSpacing),
-              Divider(color: Colors.grey.shade300),
-              SizedBox(height: dividerSpacing),
-
-              Center(
-                child: Column(
-                  children: [
-                    _CustomButton(
-                      label: "Alarmas",
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const AlarmsMobileScreen()),
-                        );
-                      },
-                      width: width * 0.5,
-                      height: height * 0.07,
-                      fontSize: width * 0.05,
-                    ),
-                    SizedBox(height: height * 0.03),
-                    _CustomButton(
-                      label: "Tareas",
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const TasksMobileScreen()),
-                        );
-                      },
-                      width: width * 0.5,
-                      height: height * 0.07,
-                      fontSize: width * 0.05,
-                    ),
-                  ],
-                ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),

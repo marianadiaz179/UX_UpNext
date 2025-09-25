@@ -8,62 +8,70 @@ class TaskHistoryMobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final screenHeight = size.height;
-    final screenWidth = size.width;
+    final width = size.width;
+    final height = size.height;
 
-    final double padding = screenHeight * 0.02;
-    final double titleFontSize = screenHeight * 0.045;
-    final double subtitleFontSize = screenHeight * 0.02;
-    final double sectionFontSize = screenHeight * 0.02;
-    final double tileSpacing = screenHeight * 0.02;
+    final double padding = (height * 0.02).clamp(8, 16);
+    final double titleFontSize = (height * 0.045).clamp(20, 32);
+    final double subtitleFontSize = (height * 0.02).clamp(12, 18);
+    final double sectionFontSize = (height * 0.02).clamp(12, 18);
+    final double tileSpacing = (height * 0.02).clamp(4, 12);
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SizedBox(
-          width: screenWidth,
-          height: screenHeight,
-          child: Padding(
-            padding: EdgeInsets.all(padding),
-            child: ListView(
+        child: Padding(
+          padding: EdgeInsets.all(padding),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: screenHeight * 0.07,
+                  height: (height * 0.07).clamp(40, 80),
                   child: const CustomAppBarMobile(),
                 ),
                 SizedBox(height: padding),
+
+                // Título y subtítulo
                 Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.05),
-                  child: Text(
-                    "Historial",
-                    style: TextStyle(
-                      fontSize: titleFontSize,
-                      fontFamily: 'Rochester',
-                      color: Colors.black,
+                  padding: EdgeInsets.only(left: width * 0.05),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      "Historial",
+                      style: TextStyle(
+                        fontSize: titleFontSize,
+                        fontFamily: 'Rochester',
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.055),
-                  child: Text(
-                    "Tareas",
-                    style: TextStyle(
-                      fontSize: subtitleFontSize,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
+                  padding: EdgeInsets.only(left: width * 0.055),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      "Tareas",
+                      style: TextStyle(
+                        fontSize: subtitleFontSize,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: tileSpacing / 2),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                   child: Divider(color: Colors.grey.shade300),
                 ),
                 SizedBox(height: tileSpacing),
 
+                // Sección Activas
                 Padding(
                   padding: EdgeInsets.only(
-                      left: screenWidth * 0.05, bottom: tileSpacing / 2),
+                      left: width * 0.05, bottom: tileSpacing / 2),
                   child: Text(
                     "Activas",
                     style: TextStyle(
@@ -73,12 +81,12 @@ class TaskHistoryMobileScreen extends StatelessWidget {
                   ),
                 ),
                 const TaskTileMobile(title: "Sacar Perro", time: "8:30 AM"),
-
                 SizedBox(height: tileSpacing * 1.5),
 
+                // Sección Cerradas
                 Padding(
                   padding: EdgeInsets.only(
-                      left: screenWidth * 0.05, bottom: tileSpacing / 2),
+                      left: width * 0.05, bottom: tileSpacing / 2),
                   child: Text(
                     "Cerradas",
                     style: TextStyle(
@@ -88,6 +96,7 @@ class TaskHistoryMobileScreen extends StatelessWidget {
                   ),
                 ),
                 const TaskTileMobile(title: "Hacer mercado", time: "10:30 AM"),
+                SizedBox(height: tileSpacing),
               ],
             ),
           ),

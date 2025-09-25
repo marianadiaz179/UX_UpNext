@@ -13,12 +13,12 @@ class HomeWeb extends StatelessWidget {
     final width = size.width;
     final height = size.height;
 
-    final titleFont = width * 0.06;
-    final padding = width * 0.03;
-    final subtitleFont = width * 0.02;
-    final clockDiameter = height * 0.35;
-    final buttonWidth = width * 0.15;
-    final buttonHeight = height * 0.08;
+    final double titleFont = min(max(width * 0.06, 24), 60); // limita entre 24 y 60
+    final double subtitleFont = min(max(width * 0.02, 14), 28); // limita entre 14 y 28
+    final double padding = min(max(width * 0.03, 12), 40);
+    final double clockDiameter = min(max(height * 0.35, 200), 500); // reloj proporcional
+    final double buttonWidth = min(max(width * 0.15, 120), 250);
+    final double buttonHeight = min(max(height * 0.08, 40), 80);
 
     return Scaffold(
       backgroundColor: Colors.white,
