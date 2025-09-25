@@ -13,7 +13,6 @@ class AlarmsMobileScreen extends StatefulWidget {
 }
 
 class _AlarmsMobileScreenState extends State<AlarmsMobileScreen> {
-  // Lista de alarmas con estado (true = activa, false = apagada)
   final List<Map<String, dynamic>> _alarms = [
     {
       "title": "Despertar",
@@ -62,7 +61,6 @@ class _AlarmsMobileScreenState extends State<AlarmsMobileScreen> {
               const CustomAppBarMobile(),
               SizedBox(height: height * 0.02),
 
-              // Título
               Padding(
                 padding: EdgeInsets.only(left: width * 0.05),
                 child: Text(
@@ -82,7 +80,6 @@ class _AlarmsMobileScreenState extends State<AlarmsMobileScreen> {
               ),
               SizedBox(height: dividerSpacing),
 
-              // Lista de alarmas
               ..._alarms.asMap().entries.map((entry) {
                 int index = entry.key;
                 var alarm = entry.value;
@@ -117,7 +114,6 @@ class _AlarmsMobileScreenState extends State<AlarmsMobileScreen> {
 
               SizedBox(height: height * 0.03),
 
-              // Botón historial
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
@@ -156,7 +152,6 @@ class _AlarmsMobileScreenState extends State<AlarmsMobileScreen> {
 
               const Spacer(),
 
-              // Botón flotante
               Align(
                 alignment: Alignment.bottomRight,
                 child: Padding(

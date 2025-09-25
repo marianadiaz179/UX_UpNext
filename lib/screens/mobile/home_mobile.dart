@@ -32,7 +32,6 @@ class HomeMobile extends StatelessWidget {
               const CustomAppBarMobile(showBackButton: false),
               SizedBox(height: height * 0.05),
 
-              // Logo
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -64,7 +63,6 @@ class HomeMobile extends StatelessWidget {
               Divider(color: Colors.grey.shade300),
               SizedBox(height: dividerSpacing),
 
-              // Clock
               Center(
                 child: SizedBox(
                   width: clockDiameter,
@@ -72,7 +70,6 @@ class HomeMobile extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      // fondo del reloj
                       Container(
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
@@ -80,7 +77,6 @@ class HomeMobile extends StatelessWidget {
                         ),
                       ),
 
-                      // números
                       Positioned.fill(
                         child: CustomPaint(
                           painter: ClockNumbersPainter(
@@ -89,7 +85,6 @@ class HomeMobile extends StatelessWidget {
                         ),
                       ),
 
-                      // manecilla
                       Transform.rotate(
                         angle: 3.7,
                         child: Align(
@@ -102,7 +97,6 @@ class HomeMobile extends StatelessWidget {
                         ),
                       ),
 
-                      // círculo en el 7
                       Positioned.fill(
                         child: CustomPaint(
                           painter: CircleAtSevenPainter(
@@ -120,7 +114,6 @@ class HomeMobile extends StatelessWidget {
               Divider(color: Colors.grey.shade300),
               SizedBox(height: dividerSpacing),
 
-              // Botones
               Center(
                 child: Column(
                   children: [
@@ -202,7 +195,6 @@ class _CustomButton extends StatelessWidget {
   }
 }
 
-// Painter para los números del reloj
 class ClockNumbersPainter extends CustomPainter {
   final double fontSize;
   ClockNumbersPainter({required this.fontSize});
@@ -241,7 +233,6 @@ class ClockNumbersPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
-// Painter para el círculo en el número 7
 class CircleAtSevenPainter extends CustomPainter {
   final double circleRadius;
   final double fontSize;

@@ -81,7 +81,6 @@ class _TaskHistoryWebScreenState extends State<TaskHistoryWebScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Columna Activas
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +121,6 @@ class _TaskHistoryWebScreenState extends State<TaskHistoryWebScreen> {
 
                       SizedBox(width: width * 0.03),
 
-                      // Columna Cerradas
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,7 +163,6 @@ class _TaskHistoryWebScreenState extends State<TaskHistoryWebScreen> {
                 ),
               ),
 
-              // Botón Exportar
               Padding(
                 padding: EdgeInsets.only(
                     right: width * 0.02,

@@ -29,7 +29,6 @@ class _AlarmHistoryMobileScreenState extends State<AlarmHistoryMobileScreen> {
     },
   ];
 
-  // Lista de alarmas cerradas
   final List<Map<String, dynamic>> _closedAlarms = [
     {
       "title": "Antibiótico",
@@ -49,136 +48,149 @@ class _AlarmHistoryMobileScreenState extends State<AlarmHistoryMobileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
+    final double screenHeight = size.height;
+    final double screenWidth = size.width;
     final double padding = screenHeight * 0.02;
+    final double titleFontSize = screenHeight * 0.045;
+    final double sectionFontSize = screenHeight * 0.02;
+    final double tileSpacing = screenHeight * 0.02;
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(padding),
-          child: ListView(
-            children: [
-              const CustomAppBarMobile(),
-              SizedBox(height: padding),
+        child: SizedBox(
+          width: screenWidth,
+          height: screenHeight,
+          child: Padding(
+            padding: EdgeInsets.all(padding),
+            child: ListView(
+              children: [
+                SizedBox(
+                  height: screenHeight * 0.07,
+                  child: const CustomAppBarMobile(),
+                ),
+                SizedBox(height: padding),
 
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text(
-                  "Historial",
-                  style: TextStyle(
-                    fontSize: 38,
-                    fontFamily: 'Rochester',
-                    color: Colors.black,
+                Padding(
+                  padding: EdgeInsets.only(left: screenWidth * 0.05),
+                  child: Text(
+                    "Historial",
+                    style: TextStyle(
+                      fontSize: titleFontSize,
+                      fontFamily: 'Rochester',
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 22),
-                child: Text(
-                  "Alarmas",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
+                Padding(
+                  padding: EdgeInsets.only(left: screenWidth * 0.055),
+                  child: Text(
+                    "Alarmas",
+                    style: TextStyle(
+                      fontSize: sectionFontSize,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 15),
-                child: Divider(color: Colors.grey.shade300),
-              ),
-              SizedBox(height: padding),
+                SizedBox(height: tileSpacing / 2),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.04),
+                  child: Divider(color: Colors.grey.shade300),
+                ),
+                SizedBox(height: tileSpacing),
 
-              // Sección activas
-              const Padding(
-                padding: EdgeInsets.only(left: 20, bottom: 10),
-                child: Text(
-                  "Activas",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: screenWidth * 0.05, bottom: tileSpacing / 2),
+                  child: Text(
+                    "Activas",
+                    style: TextStyle(
+                      fontSize: sectionFontSize,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              ..._activeAlarms.asMap().entries.map((entry) {
-                int index = entry.key;
-                var alarm = entry.value;
+                ..._activeAlarms.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  var alarm = entry.value;
 
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: AlarmTileMobile(
-                    title: alarm["title"],
-                    time: alarm["time"],
-                    value: alarm["enabled"],
-                    onChanged: (val) {
-                      setState(() {
-                        _activeAlarms[index]["enabled"] = val;
-                      });
-                    },
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => AlarmDetailMobileScreen(
-                            nombre: alarm["title"],
-                            hora: alarm["time"],
-                            lista: alarm["lista"],
-                            sonido: alarm["sonido"],
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: tileSpacing),
+                    child: AlarmTileMobile(
+                      title: alarm["title"],
+                      time: alarm["time"],
+                      value: alarm["enabled"],
+                      onChanged: (val) {
+                        setState(() {
+                          _activeAlarms[index]["enabled"] = val;
+                        });
+                      },
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => AlarmDetailMobileScreen(
+                              nombre: alarm["title"],
+                              hora: alarm["time"],
+                              lista: alarm["lista"],
+                              sonido: alarm["sonido"],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              }),
+                        );
+                      },
+                    ),
+                  );
+                }),
 
-              SizedBox(height: padding * 1.5),
+                SizedBox(height: tileSpacing * 1.5),
 
-              // Sección cerradas
-              const Padding(
-                padding: EdgeInsets.only(left: 20, bottom: 10),
-                child: Text(
-                  "Cerradas",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: screenWidth * 0.05, bottom: tileSpacing / 2),
+                  child: Text(
+                    "Cerradas",
+                    style: TextStyle(
+                      fontSize: sectionFontSize,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              ..._closedAlarms.asMap().entries.map((entry) {
-                int index = entry.key;
-                var alarm = entry.value;
+                ..._closedAlarms.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  var alarm = entry.value;
 
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: AlarmTileMobile(
-                    title: alarm["title"],
-                    time: alarm["time"],
-                    value: alarm["enabled"],
-                    onChanged: (val) {
-                      setState(() {
-                        _closedAlarms[index]["enabled"] = val;
-                      });
-                    },
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => AlarmDetailMobileScreen(
-                            nombre: alarm["title"],
-                            hora: alarm["time"],
-                            lista: alarm["lista"],
-                            sonido: alarm["sonido"],
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: tileSpacing),
+                    child: AlarmTileMobile(
+                      title: alarm["title"],
+                      time: alarm["time"],
+                      value: alarm["enabled"],
+                      onChanged: (val) {
+                        setState(() {
+                          _closedAlarms[index]["enabled"] = val;
+                        });
+                      },
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => AlarmDetailMobileScreen(
+                              nombre: alarm["title"],
+                              hora: alarm["time"],
+                              lista: alarm["lista"],
+                              sonido: alarm["sonido"],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              }),
-            ],
+                        );
+                      },
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
         ),
       ),

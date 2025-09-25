@@ -212,7 +212,6 @@ class _AlarmHistoryWebScreenState extends State<AlarmHistoryWebScreen> {
                 ),
               ),
 
-              // Botón Exportar
               Padding(
                 padding: EdgeInsets.only(
                     right: width * 0.02,

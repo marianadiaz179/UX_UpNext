@@ -134,11 +134,10 @@ class _AlarmDetailWebScreenState extends State<AlarmDetailWebScreen> {
                           ),
                         ),
                     
-                        SizedBox(width: width * 0.05), // Separación entre columnas
+                        SizedBox(width: width * 0.05), 
                     
-                        // Columna derecha - Switches
                         SizedBox(
-                          width: width * 0.35, // 35% de la pantalla
+                          width: width * 0.35, 
                           child: Column(
                             children: [
                               buildSwitchTile(
