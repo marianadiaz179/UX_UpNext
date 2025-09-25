@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:upnext_mobile/screens/add_alarm_screen.dart';
-import 'package:upnext_mobile/screens/alarm_history_screen.dart';
-import 'package:upnext_mobile/widgets/alarm_tile.dart';
-import 'package:upnext_mobile/widgets/custom_app_bar.dart';
-import 'alarm_detail_screen.dart';
+import 'package:upnext_mobile/screens/mobile/add_alarm_mobile.dart';
+import 'package:upnext_mobile/screens/mobile/alarm_history_mobile.dart';
+import 'package:upnext_mobile/widgets/mobile/alarm_tile_mobile.dart';
+import 'package:upnext_mobile/widgets/mobile/custom_app_bar_mobile.dart';
+import 'alarm_detail_mobile.dart';
 
-class AlarmsScreen extends StatefulWidget {
-  const AlarmsScreen({super.key});
+class AlarmsMobileScreen extends StatefulWidget {
+  const AlarmsMobileScreen({super.key});
 
   @override
-  State<AlarmsScreen> createState() => _AlarmsScreenState();
+  State<AlarmsMobileScreen> createState() => _AlarmsMobileScreenState();
 }
 
-class _AlarmsScreenState extends State<AlarmsScreen> {
+class _AlarmsMobileScreenState extends State<AlarmsMobileScreen> {
   // Lista de alarmas con estado (true = activa, false = apagada)
   final List<Map<String, dynamic>> _alarms = [
     {
@@ -44,8 +44,8 @@ class _AlarmsScreenState extends State<AlarmsScreen> {
     final width = size.width;
     final height = size.height;
 
-    final padding = width * 0.04; // padding general
-    final titleFont = width * 0.1; // tamaño proporcional
+    final padding = width * 0.04;
+    final titleFont = width * 0.1;
     final dividerSpacing = height * 0.015;
     final alarmSpacing = height * 0.02;
     final buttonFont = width * 0.04;
@@ -59,7 +59,7 @@ class _AlarmsScreenState extends State<AlarmsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(),
+              const CustomAppBarMobile(),
               SizedBox(height: height * 0.02),
 
               // Título
@@ -69,7 +69,7 @@ class _AlarmsScreenState extends State<AlarmsScreen> {
                   "Alarmas",
                   style: TextStyle(
                     fontSize: titleFont,
-                    fontFamily: 'Cursive',
+                    fontFamily: 'Rochester',
                     color: Colors.black,
                   ),
                 ),
@@ -89,7 +89,7 @@ class _AlarmsScreenState extends State<AlarmsScreen> {
 
                 return Padding(
                   padding: EdgeInsets.only(bottom: alarmSpacing),
-                  child: AlarmTile(
+                  child: AlarmTileMobile(
                     title: alarm["title"],
                     time: alarm["time"],
                     value: alarm["enabled"],
@@ -102,7 +102,7 @@ class _AlarmsScreenState extends State<AlarmsScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => AlarmDetailScreen(
+                          builder: (_) => AlarmDetailMobileScreen(
                             nombre: alarm["title"],
                             hora: alarm["time"],
                             lista: alarm["lista"],
@@ -127,7 +127,7 @@ class _AlarmsScreenState extends State<AlarmsScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => const AlarmHistoryScreen()),
+                            builder: (_) => const AlarmHistoryMobileScreen()),
                       );
                     },
                     icon: Icon(Icons.history,
@@ -173,11 +173,11 @@ class _AlarmsScreenState extends State<AlarmsScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => const AddAlarmScreen()),
+                            builder: (_) => const AddAlarmMobileScreen()),
                       );
                     },
-                    child: Icon(Icons.add,
-                        color: Colors.black, size: fabIconSize),
+                    child:
+                        Icon(Icons.add, color: Colors.black, size: fabIconSize),
                   ),
                 ),
               )

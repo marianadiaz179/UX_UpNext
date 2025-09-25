@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:upnext_mobile/widgets/custom_app_bar.dart';
+import 'package:upnext_mobile/widgets/mobile/custom_app_bar_mobile.dart';
 
-class TaskHistoryScreen extends StatelessWidget {
-  const TaskHistoryScreen({super.key});
+class TaskHistoryMobileScreen extends StatelessWidget {
+  const TaskHistoryMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +16,15 @@ class TaskHistoryScreen extends StatelessWidget {
           padding: EdgeInsets.all(padding),
           child: ListView(
             children: [
-              const CustomAppBar(),
+              const CustomAppBarMobile(),
               SizedBox(height: padding),
-
-              // Título principal
               const Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
                   "Historial",
                   style: TextStyle(
                     fontSize: 38,
-                    fontFamily: 'Cursive',
+                    fontFamily: 'Rochester',
                     color: Colors.black,
                   ),
                 ),
@@ -48,8 +46,6 @@ class TaskHistoryScreen extends StatelessWidget {
                 child: Divider(color: Colors.grey.shade300),
               ),
               SizedBox(height: padding),
-
-              // Sección activas
               const Padding(
                 padding: EdgeInsets.only(left: 20, bottom: 10),
                 child: Text(
@@ -62,8 +58,6 @@ class TaskHistoryScreen extends StatelessWidget {
               ),
               const _TaskTile(title: "Sacar Perro", time: "8:30 AM"),
               SizedBox(height: padding * 1.5),
-
-              // Sección cerradas
               const Padding(
                 padding: EdgeInsets.only(left: 20, bottom: 10),
                 child: Text(
@@ -83,7 +77,6 @@ class TaskHistoryScreen extends StatelessWidget {
   }
 }
 
-// Tile de tarea
 class _TaskTile extends StatelessWidget {
   final String title;
   final String time;
@@ -101,7 +94,6 @@ class _TaskTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Checkbox
             Checkbox(
               value: true,
               onChanged: (_) {},
@@ -112,8 +104,6 @@ class _TaskTile extends StatelessWidget {
               checkColor: Colors.white,
             ),
             const SizedBox(width: 8),
-
-            // Texto
             Expanded(
               child: Text(
                 title,
@@ -123,8 +113,6 @@ class _TaskTile extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Hora
             Text(
               time,
               style: const TextStyle(

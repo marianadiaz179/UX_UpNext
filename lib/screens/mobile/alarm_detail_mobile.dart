@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:upnext_mobile/widgets/custom_app_bar.dart';
+import 'package:upnext_mobile/widgets/mobile/custom_app_bar_mobile.dart';
 
-class AlarmDetailScreen extends StatefulWidget {
+class AlarmDetailMobileScreen extends StatefulWidget {
   final String nombre;
   final String hora;
   final String lista;
   final String sonido;
 
-  const AlarmDetailScreen({
+  const AlarmDetailMobileScreen({
     super.key,
     required this.nombre,
     required this.hora,
@@ -16,10 +16,11 @@ class AlarmDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<AlarmDetailScreen> createState() => _AlarmDetailScreenState();
+  State<AlarmDetailMobileScreen> createState() =>
+      _AlarmDetailMobileScreenState();
 }
 
-class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
+class _AlarmDetailMobileScreenState extends State<AlarmDetailMobileScreen> {
   late TextEditingController nombreController;
   late TextEditingController horaController;
 
@@ -79,16 +80,15 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(),
+              const CustomAppBarMobile(),
               SizedBox(height: height * 0.02),
-
               Padding(
                 padding: EdgeInsets.only(left: width * 0.05),
                 child: TextField(
                   controller: nombreController,
                   style: const TextStyle(
                     fontSize: 38,
-                    fontFamily: 'Cursive',
+                    fontFamily: 'Rochester',
                     color: Colors.black,
                   ),
                   decoration: const InputDecoration(
@@ -97,7 +97,6 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
                   ),
                 ),
               ),
-
               SizedBox(height: height * 0.015),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -106,7 +105,6 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
                 child: Divider(color: Colors.grey.shade300, thickness: 1),
               ),
               SizedBox(height: height * 0.02),
-
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -117,20 +115,19 @@ class _AlarmDetailScreenState extends State<AlarmDetailScreen> {
                           listasDisponibles, (val) {
                         setState(() => listaSeleccionada = val);
                       }, size),
-                      buildDropdownRow("Sonido:", sonidoSeleccionado,
-                          sonidosDisponibles, (val) {
+                      buildDropdownRow(
+                          "Sonido:", sonidoSeleccionado, sonidosDisponibles,
+                          (val) {
                         setState(() => sonidoSeleccionado = val);
                       }, size),
-
                       SizedBox(height: height * 0.05),
-
-                      buildSwitchTile(
-                          "Mostrar lista al inicio", mostrarLista, (val) {
+                      buildSwitchTile("Mostrar lista al inicio", mostrarLista,
+                          (val) {
                         setState(() => mostrarLista = val);
                       }, size),
                       SizedBox(height: height * 0.02),
-                      buildSwitchTile("Asociar con Google Home",
-                          asociarGoogleHome, (val) {
+                      buildSwitchTile(
+                          "Asociar con Google Home", asociarGoogleHome, (val) {
                         setState(() => asociarGoogleHome = val);
                       }, size),
                     ],

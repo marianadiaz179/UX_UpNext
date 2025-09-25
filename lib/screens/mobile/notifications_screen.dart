@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:upnext_mobile/widgets/custom_app_bar.dart';
-import 'package:upnext_mobile/widgets/notification_tile.dart';
+import 'package:upnext_mobile/widgets/mobile/custom_app_bar_mobile.dart';
+import 'package:upnext_mobile/widgets/mobile/notification_tile.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -19,22 +19,19 @@ class NotificationsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(),
-
+              const CustomAppBarMobile(),
               SizedBox(height: height * 0.02),
-
               Padding(
                 padding: EdgeInsets.only(left: width * 0.05),
                 child: Text(
                   "Notificaciones",
                   style: TextStyle(
-                    fontSize: width * 0.09, // tamaño de texto dinámico
-                    fontFamily: 'Cursive',
+                    fontSize: width * 0.09,
+                    fontFamily: 'Rochester',
                     color: Colors.black,
                   ),
                 ),
               ),
-
               SizedBox(height: height * 0.012),
               Padding(
                 padding: EdgeInsets.only(
@@ -44,18 +41,16 @@ class NotificationsScreen extends StatelessWidget {
                 child: Divider(color: Colors.grey.shade300, thickness: 1),
               ),
               SizedBox(height: height * 0.025),
-
               NotificationTile(
                 title: "Alarma - Despertar",
                 message:
                     "Su alarma se ha actualizado para sonar a las 5:00 AM todos los días",
               ),
-
               SizedBox(height: height * 0.02),
-
               NotificationTile(
                 title: "Tarea - Hacer mercado",
-                message: "Su tarea Hacer Mercado ha sido finalizada exitosamente",
+                message:
+                    "Su tarea Hacer Mercado ha sido finalizada exitosamente",
               ),
             ],
           ),

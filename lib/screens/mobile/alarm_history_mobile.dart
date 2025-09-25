@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:upnext_mobile/widgets/alarm_tile.dart';
-import 'package:upnext_mobile/widgets/custom_app_bar.dart';
-import 'alarm_detail_screen.dart';
+import 'package:upnext_mobile/widgets/mobile/alarm_tile_mobile.dart';
+import 'package:upnext_mobile/widgets/mobile/custom_app_bar_mobile.dart';
+import 'alarm_detail_mobile.dart';
 
-class AlarmHistoryScreen extends StatefulWidget {
-  const AlarmHistoryScreen({super.key});
+class AlarmHistoryMobileScreen extends StatefulWidget {
+  const AlarmHistoryMobileScreen({super.key});
 
   @override
-  State<AlarmHistoryScreen> createState() => _AlarmHistoryScreenState();
+  State<AlarmHistoryMobileScreen> createState() =>
+      _AlarmHistoryMobileScreenState();
 }
 
-class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
-  // Lista de alarmas activas
+class _AlarmHistoryMobileScreenState extends State<AlarmHistoryMobileScreen> {
   final List<Map<String, dynamic>> _activeAlarms = [
     {
       "title": "Despertar",
@@ -59,17 +59,16 @@ class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
           padding: EdgeInsets.all(padding),
           child: ListView(
             children: [
-              const CustomAppBar(),
+              const CustomAppBarMobile(),
               SizedBox(height: padding),
 
-              // Título principal
               const Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
                   "Historial",
                   style: TextStyle(
                     fontSize: 38,
-                    fontFamily: 'Cursive',
+                    fontFamily: 'Rochester',
                     color: Colors.black,
                   ),
                 ),
@@ -109,7 +108,7 @@ class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: AlarmTile(
+                  child: AlarmTileMobile(
                     title: alarm["title"],
                     time: alarm["time"],
                     value: alarm["enabled"],
@@ -122,7 +121,7 @@ class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => AlarmDetailScreen(
+                          builder: (_) => AlarmDetailMobileScreen(
                             nombre: alarm["title"],
                             hora: alarm["time"],
                             lista: alarm["lista"],
@@ -154,7 +153,7 @@ class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: AlarmTile(
+                  child: AlarmTileMobile(
                     title: alarm["title"],
                     time: alarm["time"],
                     value: alarm["enabled"],
@@ -167,7 +166,7 @@ class _AlarmHistoryScreenState extends State<AlarmHistoryScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => AlarmDetailScreen(
+                          builder: (_) => AlarmDetailMobileScreen(
                             nombre: alarm["title"],
                             hora: alarm["time"],
                             lista: alarm["lista"],

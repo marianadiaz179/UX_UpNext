@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:upnext_mobile/widgets/custom_app_bar.dart';
+import 'package:upnext_mobile/widgets/mobile/custom_app_bar_mobile.dart';
 
-class AddAlarmScreen extends StatefulWidget {
-  const AddAlarmScreen({super.key});
+class AddAlarmMobileScreen extends StatefulWidget {
+  const AddAlarmMobileScreen({super.key});
 
   @override
-  State<AddAlarmScreen> createState() => _AddAlarmScreenState();
+  State<AddAlarmMobileScreen> createState() => _AddAlarmMobileScreenState();
 }
 
-class _AddAlarmScreenState extends State<AddAlarmScreen> {
+class _AddAlarmMobileScreenState extends State<AddAlarmMobileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
 
@@ -55,21 +55,19 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(),
+              const CustomAppBarMobile(),
               SizedBox(height: height * 0.02),
-
               Padding(
                 padding: EdgeInsets.only(left: width * 0.05),
                 child: Text(
                   "Crear Alarma",
                   style: TextStyle(
                     fontSize: width * 0.08,
-                    fontFamily: 'Cursive',
+                    fontFamily: 'Rochester',
                     color: Colors.black,
                   ),
                 ),
               ),
-
               SizedBox(height: height * 0.015),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -78,7 +76,6 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
                 child: Divider(color: Colors.grey.shade300, thickness: 1),
               ),
               SizedBox(height: height * 0.02),
-
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -89,27 +86,25 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
                           listasDisponibles, (val) {
                         setState(() => listaSeleccionada = val);
                       }, size),
-                      buildDropdownRow("Sonido:", sonidoSeleccionado,
-                          sonidosDisponibles, (val) {
+                      buildDropdownRow(
+                          "Sonido:", sonidoSeleccionado, sonidosDisponibles,
+                          (val) {
                         setState(() => sonidoSeleccionado = val);
                       }, size),
-
                       SizedBox(height: height * 0.05),
-
-                      buildSwitchTile(
-                          "Mostrar lista al inicio", mostrarLista, (val) {
+                      buildSwitchTile("Mostrar lista al inicio", mostrarLista,
+                          (val) {
                         setState(() => mostrarLista = val);
                       }, size),
                       SizedBox(height: height * 0.02),
-                      buildSwitchTile("Asociar con Google Home",
-                          asociarGoogleHome, (val) {
+                      buildSwitchTile(
+                          "Asociar con Google Home", asociarGoogleHome, (val) {
                         setState(() => asociarGoogleHome = val);
                       }, size),
                     ],
                   ),
                 ),
               ),
-
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(

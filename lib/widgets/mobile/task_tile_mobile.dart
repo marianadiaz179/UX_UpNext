@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TaskTile extends StatefulWidget {
+class TaskTileMobile extends StatefulWidget {
   final String title;
   final String time;
 
-  const TaskTile({super.key, required this.title, required this.time});
+  const TaskTileMobile({super.key, required this.title, required this.time});
 
   @override
-  State<TaskTile> createState() => _TaskTileState();
+  State<TaskTileMobile> createState() => _TaskTileMobileState();
 }
 
-class _TaskTileState extends State<TaskTile> {
+class _TaskTileMobileState extends State<TaskTileMobile> {
   bool isChecked = false;
 
   @override
@@ -19,13 +19,12 @@ class _TaskTileState extends State<TaskTile> {
     final width = size.width;
     final height = size.height;
 
-    // Escalas proporcionales
-    final textScale = width * 0.035; // ~16px en un móvil normal
-    final smallTextScale = width * 0.03; // ~14px aprox
-    final paddingH = width * 0.04; // ~16px aprox
-    final paddingV = height * 0.015; // ~12px aprox
-    final radius = width * 0.02; // ~8px aprox
-    final gap = width * 0.02; // ~8px aprox
+    final textScale = width * 0.035;
+    final smallTextScale = width * 0.03;
+    final paddingH = width * 0.04;
+    final paddingV = height * 0.015;
+    final radius = width * 0.02;
+    final gap = width * 0.02;
 
     return Padding(
       padding: EdgeInsets.only(left: width * 0.05, right: width * 0.04),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:upnext_mobile/screens/task_history_screen.dart';
-import 'package:upnext_mobile/widgets/custom_app_bar.dart';
-import 'package:upnext_mobile/widgets/task_tile.dart';
+import 'package:upnext_mobile/screens/mobile/task_history_mobile.dart';
+import 'package:upnext_mobile/widgets/mobile/custom_app_bar_mobile.dart';
+import 'package:upnext_mobile/widgets/mobile/task_tile_mobile.dart';
 
-class TasksScreen extends StatelessWidget {
-  const TasksScreen({super.key});
+class TasksMobileScreen extends StatelessWidget {
+  const TasksMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,39 +27,31 @@ class TasksScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(),
+              const CustomAppBarMobile(),
               SizedBox(height: height * 0.02),
-
-              // Título
               Padding(
                 padding: EdgeInsets.only(left: width * 0.05),
                 child: Text(
                   "Tareas",
                   style: TextStyle(
                     fontSize: titleFont,
-                    fontFamily: 'Cursive',
+                    fontFamily: 'Rochester',
                     color: Colors.black,
                   ),
                 ),
               ),
-
               SizedBox(height: height * 0.01),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                 child: Divider(color: Colors.grey.shade300),
               ),
               SizedBox(height: dividerSpacing),
-
-              // Lista de tareas
-              const TaskTile(title: "Sacar Perro", time: "8:30 AM"),
+              const TaskTileMobile(title: "Sacar Perro", time: "8:30 AM"),
               SizedBox(height: tileSpacing),
-              const TaskTile(title: "Llamar al médico", time: "10:00 AM"),
+              const TaskTileMobile(title: "Llamar al médico", time: "10:00 AM"),
               SizedBox(height: tileSpacing),
-              const TaskTile(title: "Comprar mercado", time: "6:00 PM"),
-
+              const TaskTileMobile(title: "Comprar mercado", time: "6:00 PM"),
               SizedBox(height: height * 0.03),
-
-              // Botón historial
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
@@ -69,7 +61,7 @@ class TasksScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const TaskHistoryScreen(),
+                          builder: (_) => const TaskHistoryMobileScreen(),
                         ),
                       );
                     },

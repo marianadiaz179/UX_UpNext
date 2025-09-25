@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AlarmTile extends StatelessWidget {
+class AlarmTileWeb extends StatelessWidget {
   final String title;
   final String time;
   final bool value;
   final ValueChanged<bool> onChanged;
   final VoidCallback onTap;
 
-  const AlarmTile({
+  const AlarmTileWeb({
     required this.title,
     required this.time,
     required this.value,
@@ -22,34 +22,35 @@ class AlarmTile extends StatelessWidget {
     final width = size.width;
     final height = size.height;
 
-    // Escala base para no agrandar demasiado
-    final textScale = width * 0.035; // ~16 en un móvil normal (400px)
-    final smallTextScale = width * 0.03; // ~14 en un móvil normal
-    final paddingH = width * 0.04; // 16px aprox
-    final paddingV = height * 0.015; // 12px aprox
-    final radius = width * 0.02; // 8px aprox
-    final gap = height * 0.005; // 4px aprox
+    final containerWidth = width * 0.5; 
+    final containerHeight = height * 0.11;
+    final paddingH = width * 0.02;
+    final paddingV = height * 0.015;
+    final textScale = width * 0.004;
+    final smallTextScale = width * 0.001;
+    final gap = height * 0.005;
 
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.only(left: width * 0.05, right: width * 0.04),
+      child: Center(
         child: Container(
+          width: containerWidth,
+          height: containerHeight,
           padding: EdgeInsets.symmetric(horizontal: paddingH, vertical: paddingV),
           decoration: BoxDecoration(
             color: const Color(0xFFEDEBF5),
-            borderRadius: BorderRadius.circular(radius),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     title,
                     style: TextStyle(
-                      fontSize: textScale.clamp(14, 18), // límites razonables
+                      fontSize: textScale.clamp(16, 22),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -57,17 +58,22 @@ class AlarmTile extends StatelessWidget {
                   Text(
                     time,
                     style: TextStyle(
-                      fontSize: smallTextScale.clamp(12, 16),
+                      fontSize: smallTextScale.clamp(14, 18),
                       fontWeight: FontWeight.w300,
                     ),
                   ),
                 ],
               ),
-              Switch(
-                value: value,
-                onChanged: onChanged,
-                activeColor: Colors.black,
-                activeTrackColor: Colors.black12,
+
+              // Switch
+              Transform.scale(
+                scale: 1.2, // más grande en web
+                child: Switch(
+                  value: value,
+                  onChanged: onChanged,
+                  activeColor: Colors.black,
+                  activeTrackColor: Colors.black12,
+                ),
               ),
             ],
           ),

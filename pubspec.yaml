@@ -58,6 +58,17 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: Rochester
+      fonts:
+        - asset: assets/fonts/Rochester-Regular.ttf
+    - family: Risque
+      fonts:
+        - asset: assets/fonts/Risque-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
